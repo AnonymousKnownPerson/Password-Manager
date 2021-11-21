@@ -4,18 +4,17 @@ import com.googlecode.lanterna.Symbols;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
-import java.awt.*;
+
 import java.io.IOException;
 
-public class PreMenuView{
+public class LoginMenuView {
     public static void LaunchViewPreMenu(MainModel model) throws IOException{
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
-        String sizeLabel = "Witaj! Ustaw Hasło";
+        String sizeLabel = "Witaj! Podaj Hasło";
         TerminalPosition labelBoxTopLeft = new TerminalPosition(1, 1);
         TerminalSize labelBoxSize = new TerminalSize(sizeLabel.length() + 2, 3);
         TerminalPosition labelBoxTopRightCorner = labelBoxTopLeft.withRelativeColumn(labelBoxSize.getColumns() - 1);

@@ -8,7 +8,9 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
+import view.PreMenuView;
 import controller.PreMenuController;
+import java.io.File;
 
 public class AppStarted {
     public static void AppStarted() throws IOException, InterruptedException, FontFormatException {
@@ -16,8 +18,15 @@ public class AppStarted {
         Terminal terminal =  defaultTerminalFactory.createTerminal();
         Screen screen = new TerminalScreen(terminal);
         screen.startScreen();
+        screen.setCursorPosition(null);
         TextGraphics textGraphics = screen.newTextGraphics();
         MainModel database = new MainModel(terminal, screen, textGraphics);
-        PreMenuController.LaunchPreMenu(database);
+        MainModel.itIsInPreMenu(true);
+        File f = new File("password.txt");
+        if(!f.exists()) {
+            PreMenuView.LaunchViewPreMenu(database);
+            PreMenuController.LaunchPreMenu(database);
+        }
+
     }
 }

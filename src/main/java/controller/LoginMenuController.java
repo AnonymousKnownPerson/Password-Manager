@@ -1,18 +1,15 @@
 package controller;
 
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.input.KeyType;
-import model.MainModel;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.terminal.Terminal;
-import java.io.IOException;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.Terminal;
+import model.MainModel;
 
-import view.MainView;
-import controller.PasswordGrabber;
+import java.io.IOException;
 
-public class PreMenuController {
+public class LoginMenuController {
     public static void LaunchPreMenu(MainModel model) throws IOException{
         while(MainModel.isInPreMenu()){ //<- sprawdza czy jest w menu
             Terminal terminal = model.getTerminal();
