@@ -23,15 +23,17 @@ public class AppStarted {
         screen.setCursorPosition(null);
         TextGraphics textGraphics = screen.newTextGraphics();
         MainModel database = new MainModel(terminal, screen, textGraphics);
-        MainModel.itIsInPreMenu(true);
         File f = new File("password.txt");
         if(!f.exists()) {
+            MainModel.itIsInPreMenu(true);
             PreMenuView.LaunchViewPreMenu(database);
             PreMenuController.LaunchPreMenu(database);
         }else{
+            MainModel.itIsInLoginMenu(true);
             LoginMenuView.LaunchViewLoginMenu(database);
             LoginMenuController.LaunchLoginMenu(database);
         }
+
 
     }
 }

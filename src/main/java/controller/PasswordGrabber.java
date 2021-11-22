@@ -14,14 +14,13 @@ public class PasswordGrabber {
     public static String PasswordGetter() throws java.io.IOException{
         Path fileName = Path.of("password.txt");
         String content = Files.readString(fileName, StandardCharsets.US_ASCII);
-        Base64.Decoder decoder = Base64.getMimeDecoder();
-        return new String(decoder.decode(content));
+        byte[] dataBytes = Base64.getMimeDecoder().decode(content);
+        String data = new String(dataBytes, StandardCharsets.UTF_8.name());
+        return data;
     }
     public static String PasswordSetter(String passwordToHash){
         Base64.Encoder encoder = Base64.getMimeEncoder();
-        String message = passwordToHash;
-        String eStr = encoder.encodeToString(message.getBytes());
-        return eStr;
+        return encoder.encodeToString(passwordToHash.getBytes());
     }
     public static void PutToFile(String password, String nameOfTheFile){
         File file = new File(nameOfTheFile+".txt");
@@ -51,10 +50,6 @@ public class PasswordGrabber {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-    }
-    public static boolean PasswordChecker(String password1,String password2){
-        if(password1==password2) return true;
-        else return false;
     }
 
 }

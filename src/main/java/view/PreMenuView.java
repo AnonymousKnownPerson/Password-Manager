@@ -1,5 +1,6 @@
 package view;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.Symbols;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -36,6 +37,8 @@ public class PreMenuView{
         textGraphics.setCharacter(labelBoxTopRightCorner.withRelativeRow(1), Symbols.DOUBLE_LINE_VERTICAL);
         textGraphics.setCharacter(labelBoxTopRightCorner.withRelativeRow(2), Symbols.DOUBLE_LINE_BOTTOM_RIGHT_CORNER);
         textGraphics.putString(labelBoxTopLeft.withRelative(1, 1), sizeLabel);
+        textGraphics.putString(42, 1, "Password Manager - Press ESC to exit", SGR.BOLD);
+        textGraphics.drawLine(0, 22, 80, 22, '-');
         screen.refresh();
 
     }

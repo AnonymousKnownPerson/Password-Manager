@@ -6,12 +6,14 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
+import view.LoginMenuView;
+import view.MenuView;
 
 import java.io.IOException;
 
 public class LoginMenuController {
-    public static void LaunchLoginMenu(MainModel model) throws IOException{
-        while(MainModel.isInPreMenu()){ //<- sprawdza czy jest w menu
+    public static void LaunchLoginMenu(MainModel model) throws IOException, IllegalArgumentException{
+        while(MainModel.isInLoginMenu()){ //<- sprawdza czy jest w menu
             Terminal terminal = model.getTerminal();
             Screen screen = model.getScreen();
             KeyStroke keyStroke = terminal.pollInput();
@@ -23,22 +25,23 @@ public class LoginMenuController {
             if (keyStroke != null) {
                 switch (keyStroke.getKeyType()) {
                     case Escape:
-                        terminal.bell();
                         terminal.close();
                         break;
                     case Enter:
                         String temp1 = PasswordGrabber.PasswordGetter();
-                        if(PasswordGrabber.PasswordChecker(temp1,password))terminal.close();
-                        break;
-                    case Delete:
-                        password = password.substring(0, password.length() -1);
-                        model.setpwd(password);
+                        if(password.equals(temp1)){
+                            terminal.clearScreen();
+                            MenuView.LaunchViewMenu(model, 1);
+                            MenuController.LaunchMenu(model);
+                            break;}
+                        else{
+                            terminal.close();
+                        }
                         break;
                     default:
                         char temp=keyStroke.getCharacter();
                         password+=temp;
                         terminal.putCharacter(temp);
-                        terminal.bell();
                         model.setpwd(password);
                         break;
                 }
