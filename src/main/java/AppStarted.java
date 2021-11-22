@@ -7,7 +7,9 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import controller.LoginMenuController;
 import model.MainModel;
+import view.LoginMenuView;
 import view.PreMenuView;
 import controller.PreMenuController;
 import java.io.File;
@@ -26,6 +28,9 @@ public class AppStarted {
         if(!f.exists()) {
             PreMenuView.LaunchViewPreMenu(database);
             PreMenuController.LaunchPreMenu(database);
+        }else{
+            LoginMenuView.LaunchViewLoginMenu(database);
+            LoginMenuController.LaunchLoginMenu(database);
         }
 
     }

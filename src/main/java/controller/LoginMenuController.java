@@ -10,7 +10,7 @@ import model.MainModel;
 import java.io.IOException;
 
 public class LoginMenuController {
-    public static void LaunchPreMenu(MainModel model) throws IOException{
+    public static void LaunchLoginMenu(MainModel model) throws IOException{
         while(MainModel.isInPreMenu()){ //<- sprawdza czy jest w menu
             Terminal terminal = model.getTerminal();
             Screen screen = model.getScreen();
@@ -27,9 +27,8 @@ public class LoginMenuController {
                         terminal.close();
                         break;
                     case Enter:
-                        PasswordGrabber.PasswordSetter(password);
-                        terminal.bell();
-                        terminal.close();
+                        String temp1 = PasswordGrabber.PasswordGetter();
+                        if(PasswordGrabber.PasswordChecker(temp1,password))terminal.close();
                         break;
                     case Delete:
                         password = password.substring(0, password.length() -1);

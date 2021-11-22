@@ -30,13 +30,11 @@ public class PreMenuController {
                         terminal.close();
                         break;
                     case Enter:
-                        PasswordGrabber.PasswordSetter(password);
+                        String pswd = PasswordGrabber.PasswordSetter(password);
+                        PasswordGrabber.CreateFile("password");
+                        PasswordGrabber.PutToFile(password,"password");
                         terminal.bell();
                         terminal.close();
-                        break;
-                    case Delete:
-                        password = password.substring(0, password.length() -1);
-                        model.setpwd(password);
                         break;
                     default:
                         char temp=keyStroke.getCharacter();

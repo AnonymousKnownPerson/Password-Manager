@@ -11,7 +11,7 @@ import model.MainModel;
 import java.io.IOException;
 
 public class LoginMenuView {
-    public static void LaunchViewPreMenu(MainModel model) throws IOException{
+    public static void LaunchViewLoginMenu(MainModel model) throws IOException{
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
         String sizeLabel = "Witaj! Podaj Hasło";
