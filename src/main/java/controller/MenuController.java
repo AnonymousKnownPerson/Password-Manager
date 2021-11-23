@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MenuController {
-    public static void LaunchMenu(MainModel model) throws IOException, IllegalArgumentException{
+    public static void LaunchMenu(MainModel model) throws IOException, IllegalArgumentException, InterruptedException {
         MainModel.itIsInMenu(true);
         MainModel.itIsInAccountList(false);
         MainModel.itIsInAccountMaker(false);
@@ -44,20 +44,76 @@ public class MenuController {
                     case Enter:
                         if(model.getIndexMenu()==4)terminal.close();
                         else if(model.getIndexMenu()==3){
-                            PasswordGrabber.DeleteAccount(0);
+                            File f = new File("passwords.txt");
+                            if(!f.exists()) {
+                                textGraphics.putString(23, 2, "Nie ma pliku \"passwords\", tworzę nowy plik.");
+                                PasswordGrabber.CreateFile("passwords");
+                                break;
+                            }
+                            boolean deleTemp = true;
+                            PasswordGrabber.ReadAccounts(model);
+                            while(deleTemp){
+                                KeyStroke keyStroke1 = terminal.pollInput();
+                                DeleteAccountView.DeleteAccountListView(model,MainModel.getDeletePosition());
+                                terminal.flush();
+                                if (keyStroke1 != null) {
+                                switch (keyStroke1.getKeyType()) {
+                                    case ArrowUp:
+                                        if(MainModel.getDeletePosition()!=0){
+                                            int tp = MainModel.getDeletePosition();
+                                            MainModel.setDeletePosition(tp-1);
+                                        }
+                                        break;
+                                    case ArrowDown:
+                                        if(MainModel.getDeletePosition()!=6){
+                                            int tp = MainModel.getDeletePosition();
+                                            MainModel.setDeletePosition(tp+1);
+                                        }
+                                        break;
+                                    case Escape:
+                                        deleTemp=false;
+                                        screen.refresh();
+                                        terminal.flush();
+                                        screen.clear();
+                                        MenuView.LaunchViewMenu(model, model.getIndexMenu());
+                                        break;
+                                    case Enter:
+                                        PasswordGrabber.DeleteAccount(MainModel.getDeletePosition());
+                                        deleTemp=false;
+                                        terminal.flush();
+                                        screen.refresh();
+                                        MenuView.LaunchViewMenu(model, model.getIndexMenu());
+                                        break;
+
+
+                                }
+                            }
+                            }
                         }
                         else if(model.getIndexMenu()==2){
-                            terminal.clearScreen();
+
                             MainModel.setStateOfAccountMaker(0);
                             File f = new File("passwords.txt");
                             if(!f.exists()){
+                                textGraphics.putString(23, 2, "Nie ma pliku \"passwords\", tworzę nowy plik.");
+                                terminal.flush();
+                                screen.refresh();
+                                Thread.sleep(2000);
                                 MainModel.setNumberOfAccounts(0);
                                 PasswordGrabber.CreateFile("passwords");
+
                             }
+                            screen.refresh();
+                            terminal.clearScreen();
                             MakeAccountView.LaunchViewMenu(model, MainModel.getStateOfAccountMaker());
                             MakeAccountController.MakeAccountController(model, MainModel.getNumberOfAccounts());
                         }
                         else if (model.getIndexMenu()==1){
+                            File f = new File("passwords.txt");
+                            if(!f.exists()) {
+                                textGraphics.putString(23, 2, "Nie ma pliku \"passwords\", tworzę nowy plik.");
+                                PasswordGrabber.CreateFile("passwords");
+                            }
                             AccountListView.LaunchAccountListView(model);
                             PasswordGrabber.ReadAccounts(model);
                         }

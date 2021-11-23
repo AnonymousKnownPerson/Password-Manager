@@ -10,7 +10,7 @@ import view.MenuView;
 import java.io.IOException;
 
 public class MakeAccountController {
-    public static void MakeAccountController(MainModel model, int numberOfAccounts) throws IOException {
+    public static void MakeAccountController(MainModel model, int numberOfAccounts) throws IOException, InterruptedException {
         MainModel.itIsInMenu(false);
         MainModel.itIsInAccountMaker(true);
         MainModel.setStateOfAccountMaker(0);

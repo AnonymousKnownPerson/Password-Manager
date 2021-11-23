@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class LoginMenuController {
-    public static void LaunchLoginMenu(MainModel model) throws IOException, IllegalArgumentException{
+    public static void LaunchLoginMenu(MainModel model) throws IOException, IllegalArgumentException, InterruptedException {
         while(MainModel.isInLoginMenu()){ //<- sprawdza czy jest w menu
             Terminal terminal = model.getTerminal();
             Screen screen = model.getScreen();

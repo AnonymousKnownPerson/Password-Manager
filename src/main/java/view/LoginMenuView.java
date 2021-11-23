@@ -15,29 +15,16 @@ public class LoginMenuView {
     public static void LaunchViewLoginMenu(MainModel model) throws IOException{
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
-        String sizeLabel = "Witaj! Podaj Hasło";
-        TerminalPosition labelBoxTopLeft = new TerminalPosition(1, 1);
-        TerminalSize labelBoxSize = new TerminalSize(sizeLabel.length() + 2, 3);
-        TerminalPosition labelBoxTopRightCorner = labelBoxTopLeft.withRelativeColumn(labelBoxSize.getColumns() - 1);
         TextGraphics textGraphics = screen.newTextGraphics();
-        textGraphics.fillRectangle(labelBoxTopLeft, labelBoxSize, ' ');
-        textGraphics.drawLine(
-                labelBoxTopLeft.withRelativeColumn(1),
-                labelBoxTopLeft.withRelativeColumn(labelBoxSize.getColumns() - 2),
-                Symbols.DOUBLE_LINE_HORIZONTAL);
-        textGraphics.drawLine(
-                labelBoxTopLeft.withRelativeRow(2).withRelativeColumn(1),
-                labelBoxTopLeft.withRelativeRow(2).withRelativeColumn(labelBoxSize.getColumns() - 2),
-                Symbols.DOUBLE_LINE_HORIZONTAL);
-        textGraphics.setCharacter(labelBoxTopLeft, Symbols.DOUBLE_LINE_TOP_LEFT_CORNER);
-        textGraphics.setCharacter(labelBoxTopLeft.withRelativeRow(1), Symbols.DOUBLE_LINE_VERTICAL);
-        textGraphics.setCharacter(labelBoxTopLeft.withRelativeRow(2), Symbols.DOUBLE_LINE_BOTTOM_LEFT_CORNER);
-        textGraphics.setCharacter(labelBoxTopRightCorner, Symbols.DOUBLE_LINE_TOP_RIGHT_CORNER);
-        textGraphics.setCharacter(labelBoxTopRightCorner.withRelativeRow(1), Symbols.DOUBLE_LINE_VERTICAL);
-        textGraphics.setCharacter(labelBoxTopRightCorner.withRelativeRow(2), Symbols.DOUBLE_LINE_BOTTOM_RIGHT_CORNER);
-        textGraphics.putString(labelBoxTopLeft.withRelative(1, 1), sizeLabel);
-        textGraphics.putString(42, 1, "Password Manager - Press ESC to exit", SGR.BOLD);
-        textGraphics.drawLine(0, 22, 80, 22, '-');
+        textGraphics.drawLine(30, 0, 30, 6, '|');
+        textGraphics.drawLine(50, 0, 50, 6, '|');
+        textGraphics.putString(32, 3, "Password  Manager", SGR.BOLD);
+        textGraphics.drawLine(30, 1, 50, 1, '-');
+        textGraphics.putString(60, 1, "Press ESC to exit");
+        textGraphics.drawLine(30, 5, 50, 5, '-');
+        textGraphics.putString(35, 6, "Wpisz Hasło", SGR.BLINK);
+        textGraphics.drawLine(30, 7, 50, 7, '-');
+
         screen.refresh();
 
     }

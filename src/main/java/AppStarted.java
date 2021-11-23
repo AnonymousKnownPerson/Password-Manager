@@ -28,7 +28,9 @@ public class AppStarted {
         final String secretKey = "KomunikacjaCzłowiekKomputer";
 
         File f = new File("password.txt");
+        File f1 = new File("passwords.txt");
         if(!f.exists()) {
+            if(f1.exists())f1.delete();
             MainModel.itIsInPreMenu(true);
             PreMenuView.LaunchViewPreMenu(database);
             PreMenuController.LaunchPreMenu(database);

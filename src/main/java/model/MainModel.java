@@ -26,12 +26,10 @@ public class MainModel {
     private static String nameOfTheAccount="";
     private static String passwordOfTheAccount="";
     private static int xPosition=28;
-
-
+    private static int deletePosition=0;
     private static int indexMenu = 1;
     private static int numberOfAccounts = 0;
     private String pwd="";
-
     private final String[] PreMenuOptions = {
             "START",
             "EXIT"
@@ -50,6 +48,12 @@ public class MainModel {
             login=name;
             password=pswd;
         }
+    }
+    public static void setDeletePosition(int numberOfTheIndex){
+        deletePosition=numberOfTheIndex;
+    }
+    public static int getDeletePosition(){
+        return deletePosition;
     }
     public static void setXPosition(int numberOfTheIndex){
         xPosition=numberOfTheIndex;
