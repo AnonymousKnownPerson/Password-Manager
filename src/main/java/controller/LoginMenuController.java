@@ -25,6 +25,7 @@ public class LoginMenuController {
                 switch (keyStroke.getKeyType()) {
                     case Escape:
                         terminal.close();
+                        System.exit(0);
                         break;
                     case Enter:
                         Path relative = Paths.get("password.txt");

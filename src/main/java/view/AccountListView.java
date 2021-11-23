@@ -17,6 +17,8 @@ public class AccountListView {
         textGraphics.drawLine(0, 1, 80, 1, '-');
         textGraphics.drawLine(20, 0, 20, 24, '|');
         textGraphics.putString(60, 0, "Press ESC to Quit", SGR.BOLD);
+        textGraphics.putString(22, 0, "Strona " + MainModel.getPageOfAccounts(), SGR.BOLD);
+
         terminal.flush();
         screen.refresh();
     }

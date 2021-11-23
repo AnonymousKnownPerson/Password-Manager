@@ -1,5 +1,6 @@
 package controller;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
@@ -40,7 +41,10 @@ public class MenuController {
                         }
                         break;
                     case Enter:
-                        if (model.getIndexMenu() == 4) terminal.close();
+                        if (model.getIndexMenu() == 4) {
+                            terminal.close();
+                            System.exit(0);
+                        }
                         else if (model.getIndexMenu() == 3) {
                             File f = new File("passwords.txt");
                             if (!f.exists()) {
@@ -54,6 +58,7 @@ public class MenuController {
                             while (deleTemp) {
                                 KeyStroke keyStroke1 = terminal.pollInput();
                                 DeleteAccountView.DeleteAccountListView(model, MainModel.getDeletePosition());
+                                textGraphics.putString(22, 0, "Strona " + MainModel.getPageOfAccounts(), SGR.BOLD);
                                 terminal.flush();
                                 if (keyStroke1 != null) {
                                     switch (keyStroke1.getKeyType()) {
@@ -73,16 +78,17 @@ public class MenuController {
                                         case ArrowRight:
                                             int temp2 = MainModel.getPageOfAccounts();
                                             AccountListView.LaunchAccountListView(model);
-                                            PasswordGrabber.ReadAccounts(model, temp2 + 1);
                                             MainModel.setPageOfAccounts(temp2 + 1);
+                                            PasswordGrabber.ReadAccounts(model, temp2 + 1);
 
                                             break;
                                         case ArrowLeft:
                                             if (MainModel.getPageOfAccounts() != 1) {
                                                 int temp3 = MainModel.getPageOfAccounts();
                                                 AccountListView.LaunchAccountListView(model);
-                                                PasswordGrabber.ReadAccounts(model, temp3 - 1);
                                                 MainModel.setPageOfAccounts(temp3 - 1);
+                                                PasswordGrabber.ReadAccounts(model, temp3 - 1);
+
                                             }
 
                                             break;
@@ -91,6 +97,7 @@ public class MenuController {
                                             screen.refresh();
                                             terminal.flush();
                                             screen.clear();
+                                            MainModel.setPageOfAccounts(1);
                                             MenuView.LaunchViewMenu(model, model.getIndexMenu());
                                             break;
                                         case Enter:
@@ -133,25 +140,28 @@ public class MenuController {
                             boolean accountTemp = true;
                             while (accountTemp) {
                                 KeyStroke keyStroke2 = terminal.pollInput();
+                                textGraphics.putString(22, 0, "Strona " + MainModel.getPageOfAccounts(), SGR.BOLD);
                                 terminal.flush();
+                                screen.refresh();
                                 if (keyStroke2 != null) {
                                     switch (keyStroke2.getKeyType()) {
                                         case ArrowRight:
                                             int temp2 = MainModel.getPageOfAccounts();
                                             AccountListView.LaunchAccountListView(model);
-                                            PasswordGrabber.ReadAccounts(model, temp2 + 1);
                                             MainModel.setPageOfAccounts(temp2 + 1);
+                                            PasswordGrabber.ReadAccounts(model, temp2 + 1);
                                             break;
                                         case ArrowLeft:
                                             if (MainModel.getPageOfAccounts() != 1) {
                                                 int temp3 = MainModel.getPageOfAccounts();
                                                 AccountListView.LaunchAccountListView(model);
-                                                PasswordGrabber.ReadAccounts(model, temp3 - 1);
                                                 MainModel.setPageOfAccounts(temp3 - 1);
+                                                PasswordGrabber.ReadAccounts(model, temp3 - 1);
                                             }
                                             break;
                                         case Escape:
                                             accountTemp = false;
+                                            MainModel.setPageOfAccounts(1);
                                             screen.refresh();
                                             terminal.flush();
                                             screen.clear();
