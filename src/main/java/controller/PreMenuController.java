@@ -25,7 +25,7 @@ public class PreMenuController {
                         terminal.close();
                         break;
                     case Enter:
-                        String pswd = PasswordGrabber.PasswordSetter(password);
+                        String pswd = PasswordGrabber.encrypt(password) ;
                         PasswordGrabber.CreateFile("password");
                         PasswordGrabber.PutToFile(pswd,"password");
                         terminal.close();

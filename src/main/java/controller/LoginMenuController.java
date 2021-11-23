@@ -10,6 +10,10 @@ import view.LoginMenuView;
 import view.MenuView;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class LoginMenuController {
     public static void LaunchLoginMenu(MainModel model) throws IOException, IllegalArgumentException{
@@ -21,16 +25,18 @@ public class LoginMenuController {
             TextGraphics textGraphics = model.getTextGraphics();
             TerminalPosition startPosition = terminal.getCursorPosition();
             screen.refresh();
-
             if (keyStroke != null) {
                 switch (keyStroke.getKeyType()) {
                     case Escape:
                         terminal.close();
                         break;
                     case Enter:
-                        String temp1 = PasswordGrabber.PasswordGetter();
+                        Path relative = Paths.get("password.txt");
+                        String thingToDecode = Files.readString(relative);
+                        String temp1 = PasswordGrabber.decrypt(thingToDecode);
                         if(password.equals(temp1)){
                             terminal.clearScreen();
+                            terminal.flush();
                             MenuView.LaunchViewMenu(model, 1);
                             MenuController.LaunchMenu(model);
                             break;}

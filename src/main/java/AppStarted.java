@@ -8,14 +8,16 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import controller.LoginMenuController;
+import controller.PasswordGrabber;
 import model.MainModel;
 import view.LoginMenuView;
 import view.PreMenuView;
 import controller.PreMenuController;
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 
 public class AppStarted {
-    public static void AppStarted() throws IOException, InterruptedException, FontFormatException {
+    public static void AppStarted() throws IOException, InterruptedException, FontFormatException, NoSuchAlgorithmException {
         DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
         Terminal terminal =  defaultTerminalFactory.createTerminal();
         Screen screen = new TerminalScreen(terminal);
@@ -23,6 +25,8 @@ public class AppStarted {
         screen.setCursorPosition(null);
         TextGraphics textGraphics = screen.newTextGraphics();
         MainModel database = new MainModel(terminal, screen, textGraphics);
+        final String secretKey = "KomunikacjaCzłowiekKomputer";
+
         File f = new File("password.txt");
         if(!f.exists()) {
             MainModel.itIsInPreMenu(true);
