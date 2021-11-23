@@ -111,7 +111,7 @@ public class PasswordGrabber {
         bw.newLine();
         bw.close();
     }
-    public static void ReadAccounts(MainModel model) throws FileNotFoundException {
+    public static void ReadAccounts(MainModel model) throws IOException {
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
         TextGraphics textGraphics = screen.newTextGraphics();
