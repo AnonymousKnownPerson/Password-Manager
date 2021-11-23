@@ -1,25 +1,14 @@
 package view;
-
-
 import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.Symbols;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class MenuView {
     public static void LaunchViewMenu(MainModel model,int indexOfTheMenu) throws IOException {
-        Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
-        KeyStroke keyStroke = null;
         screen.clear();
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.drawLine(20, 0, 20, 24, '|');

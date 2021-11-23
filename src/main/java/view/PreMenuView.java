@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class PreMenuView{
     public static void LaunchViewPreMenu(MainModel model) throws IOException{
-        Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.drawLine(30, 0, 30, 5, '|');

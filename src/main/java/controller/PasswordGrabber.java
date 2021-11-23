@@ -62,14 +62,6 @@ public class PasswordGrabber {
         }
         return null;
     }
-    public List<String> AccountSender(Path pathToTheFile) throws IOException {
-        BufferedReader abc = new BufferedReader(new FileReader(String.valueOf(pathToTheFile)));
-        List<String> data = new ArrayList<String>();
-        String s;
-        while((s=abc.readLine())!=null)data.add(s);
-        abc.close();
-        return data;
-    }
     public static void PutToFile(String password, String nameOfTheFile){
         File file = new File(nameOfTheFile+".txt");
         String data = password;
@@ -109,7 +101,7 @@ public class PasswordGrabber {
         bw.newLine();
         bw.close();
     }
-    public static void ReadAccounts(MainModel model) throws IOException {
+    public static void ReadAccounts(MainModel model,int numberOfTheSite) throws IOException {
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
         TextGraphics textGraphics = screen.newTextGraphics();
@@ -122,11 +114,17 @@ public class PasswordGrabber {
             MainModel.Account newAccount = new MainModel.Account(login,password);
             accounts = addAccount(accounts, newAccount);
         }
+        int min=numberOfTheSite*7-7;
+        int max=numberOfTheSite*7;
         int i=0;
+        int j=0;
         for(MainModel.Account account : accounts){
-            textGraphics.putString(23, 2+3*(i),account.login);
-            textGraphics.putString(23, 3*(i+1), account.password);
-            textGraphics.drawLine(21, 1+3*(i+1), 80, 1+3*(i+1), '-');
+            if(min<=i && max>i){
+            textGraphics.putString(23, 2+3*(j),account.login);
+            textGraphics.putString(23, 3*(j+1), account.password);
+            textGraphics.drawLine(21, 1+3*(j+1), 80, 1+3*(j+1), '-');
+            j++;
+            }
             i++;
         }
         terminal.flush();
@@ -148,9 +146,6 @@ public class PasswordGrabber {
         }
         fw.flush();
     }
-
-
-
     private static MainModel.Account[] addAccount(MainModel.Account[] accounts, MainModel.Account accountsToAdd) {
         MainModel.Account[] newAccounts = new MainModel.Account[accounts.length + 1];
         System.arraycopy(accounts, 0, newAccounts, 0, accounts.length);

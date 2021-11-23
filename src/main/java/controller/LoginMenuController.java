@@ -6,11 +6,9 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
-import view.LoginMenuView;
 import view.MenuView;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,8 +20,6 @@ public class LoginMenuController {
             Screen screen = model.getScreen();
             KeyStroke keyStroke = terminal.pollInput();
             String password=model.getpwd();
-            TextGraphics textGraphics = model.getTextGraphics();
-            TerminalPosition startPosition = terminal.getCursorPosition();
             screen.refresh();
             if (keyStroke != null) {
                 switch (keyStroke.getKeyType()) {

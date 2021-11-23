@@ -1,19 +1,14 @@
 package view;
 
 import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.Symbols;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
 
 import java.io.IOException;
 
 public class LoginMenuView {
     public static void LaunchViewLoginMenu(MainModel model) throws IOException{
-        Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.drawLine(30, 0, 30, 6, '|');
@@ -24,7 +19,6 @@ public class LoginMenuView {
         textGraphics.drawLine(30, 5, 50, 5, '-');
         textGraphics.putString(35, 6, "Wpisz Hasło", SGR.BLINK);
         textGraphics.drawLine(30, 7, 50, 7, '-');
-
         screen.refresh();
 
     }

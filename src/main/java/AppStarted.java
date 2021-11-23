@@ -1,14 +1,12 @@
 import java.awt.*;
 import java.io.IOException;
 
-import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import controller.LoginMenuController;
-import controller.PasswordGrabber;
 import model.MainModel;
 import view.LoginMenuView;
 import view.PreMenuView;
@@ -25,8 +23,6 @@ public class AppStarted {
         screen.setCursorPosition(null);
         TextGraphics textGraphics = screen.newTextGraphics();
         MainModel database = new MainModel(terminal, screen, textGraphics);
-        final String secretKey = "KomunikacjaCzłowiekKomputer";
-
         File f = new File("password.txt");
         File f1 = new File("passwords.txt");
         if(!f.exists()) {
@@ -39,7 +35,5 @@ public class AppStarted {
             LoginMenuView.LaunchViewLoginMenu(database);
             LoginMenuController.LaunchLoginMenu(database);
         }
-
-
     }
 }

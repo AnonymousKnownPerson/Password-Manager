@@ -29,13 +29,14 @@ public class MainModel {
     private static int deletePosition=0;
     private static int indexMenu = 1;
     private static int numberOfAccounts = 0;
+    private static int pageOfAccounts = 1;
+
     private String pwd="";
+
     private final String[] PreMenuOptions = {
             "START",
             "EXIT"
     };
-
-    public static int[] cursorPosition = {0,0};
     public MainModel(Terminal terminal, Screen screen, TextGraphics textGraphic) throws IOException, NoSuchAlgorithmException {
         this.terminal = terminal;
         this.screen = screen;
@@ -48,6 +49,12 @@ public class MainModel {
             login=name;
             password=pswd;
         }
+    }
+    public static void setPageOfAccounts(int numberOfTheIndex){
+        pageOfAccounts=numberOfTheIndex;
+    }
+    public static int getPageOfAccounts(){
+        return pageOfAccounts;
     }
     public static void setDeletePosition(int numberOfTheIndex){
         deletePosition=numberOfTheIndex;
@@ -109,9 +116,6 @@ public class MainModel {
     public static void itIsInMenu(boolean temp){
         menu=temp;
     }
-    public static boolean isInAccountList(){
-        return accountList;
-    }
     public static void itIsInAccountList(boolean temp){
         accountList=temp;
     }
@@ -123,9 +127,6 @@ public class MainModel {
     }
     public TextGraphics getTextGraphics(){
         return textGraphics;
-    }
-    public String[] getPreMenuOptions(){
-        return PreMenuOptions;
     }
     public String getpwd(){
         return pwd;
