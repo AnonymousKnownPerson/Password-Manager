@@ -8,15 +8,13 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.nio.file.Paths;
 import java.security.spec.KeySpec;
 import java.util.*;
 import javax.crypto.*;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -118,10 +116,9 @@ public class PasswordGrabber {
         Scanner input = new Scanner(new File("Passwords.txt"));
         MainModel.Account[] accounts = new MainModel.Account[0];
         while(input.hasNext()) {
-            int temp=MainModel.getNumberOfAccounts();
-            MainModel.setNumberOfAccounts(temp+1);
             String login = input.next();
-            String password = input.next();
+            String pass = input.next();
+            String password = decrypt(pass);
             MainModel.Account newAccount = new MainModel.Account(login,password);
             accounts = addAccount(accounts, newAccount);
         }
@@ -129,13 +126,31 @@ public class PasswordGrabber {
         for(MainModel.Account account : accounts){
             textGraphics.putString(23, 2+3*(i),account.login);
             textGraphics.putString(23, 3*(i+1), account.password);
-            textGraphics.drawLine(23, 1+3*(i+1), 80, 1+3*(i+1), '-');
+            textGraphics.drawLine(21, 1+3*(i+1), 80, 1+3*(i+1), '-');
             i++;
         }
         terminal.flush();
         screen.refresh();
-
     }
+    static void DeleteAccount(int numberOfTheAccount) throws IOException {
+        List<String> result;
+        try (Stream<String> lines = Files.lines(Paths.get("passwords.txt"))) {
+            result = lines.collect(Collectors.toList());
+        }
+        File f=new File("passwords.txt");  //Creation of File Descriptor for output file
+        FileWriter fw=new FileWriter(f); //Creation of File Writer object
+        for(int i=0; i<result.size();i++){
+            if(numberOfTheAccount*2==i || numberOfTheAccount*2+1==i){
+                continue;
+            }
+            fw.write(result.get(i)+"\n");
+
+        }
+        fw.flush();
+    }
+
+
+
     private static MainModel.Account[] addAccount(MainModel.Account[] accounts, MainModel.Account accountsToAdd) {
         MainModel.Account[] newAccounts = new MainModel.Account[accounts.length + 1];
         System.arraycopy(accounts, 0, newAccounts, 0, accounts.length);

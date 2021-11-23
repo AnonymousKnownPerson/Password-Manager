@@ -10,12 +10,11 @@ import model.MainModel;
 import java.io.IOException;
 
 public class MakeAccountView {
-    public static void LaunchViewMenu(MainModel model, int stateOfTheView) throws IOException {
+    public static void LaunchViewMenu(MainModel model, int stateOfTheRandom) throws IOException {
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
-        KeyStroke keyStroke = null;
         TextGraphics textGraphics = screen.newTextGraphics();
-        if(stateOfTheView==0) {
+        if(stateOfTheRandom==0) {
             textGraphics.putString(30, 3, "Podaj Swój Login", SGR.BOLD);
             textGraphics.drawLine(29, 2, 47, 2, '-');
             textGraphics.drawLine(28, 2, 28, 4, '|');
@@ -28,7 +27,9 @@ public class MakeAccountView {
             textGraphics.drawLine(29, 11, 47, 11, '-');
             textGraphics.drawLine(48, 9, 48, 11, '|');
         }
+        textGraphics.putString(42, 1, "Password Manager - Press ESC to exit", SGR.BOLD);
         screen.refresh();
+        terminal.flush();
 
     }
 }

@@ -13,11 +13,11 @@ public class MakeAccountController {
     public static void MakeAccountController(MainModel model, int numberOfAccounts) throws IOException {
         MainModel.itIsInMenu(false);
         MainModel.itIsInAccountMaker(true);
+        MainModel.setStateOfAccountMaker(0);
         while(MainModel.isInAccountMaker()) {
             Terminal terminal = model.getTerminal();
             Screen screen = model.getScreen();
             KeyStroke keyStroke = terminal.pollInput();
-            screen.refresh();
             String account = MainModel.getNameOfTheAccount();
             String passwd = MainModel.getPasswordOfTheAccount();
             if (keyStroke != null &&MainModel.getStateOfAccountMaker()==1) {
@@ -28,6 +28,7 @@ public class MakeAccountController {
                     case Enter:
                         terminal.clearScreen();
                         MainModel.setXPosition(28);
+                        MainModel.setStateOfAccountMaker(0);
                         PasswordGrabber.CreateAccount(MainModel.getNameOfTheAccount(),MainModel.getPasswordOfTheAccount());
                         MainModel.clearNameOfTheAccount();
                         MainModel.clearPasswordOfTheAccount();
@@ -39,9 +40,10 @@ public class MakeAccountController {
                         char temp = keyStroke.getCharacter();
                         passwd += temp;
                         int Random = MainModel.getXPosition();
+                        screen.clear();
                         terminal.setCursorPosition(Random,13);
                         MainModel.setXPosition(Random+1);
-                        terminal.putCharacter('X');
+                        terminal.putCharacter('*');
                         MainModel.setPasswordOfTheAccount(passwd);
                         break;
                 }
@@ -54,17 +56,19 @@ public class MakeAccountController {
                         break;
                     case Enter:
                         MainModel.setStateOfAccountMaker(1);
+                        int temp1 = MainModel.getStateOfAccountMaker();
                         terminal.clearScreen();
+                        screen.clear();
                         MainModel.setXPosition(28);
-                        MakeAccountView.LaunchViewMenu(model,1);
+                        MakeAccountView.LaunchViewMenu(model,temp1);
                         break;
                     default:
                         char temp = keyStroke.getCharacter();
                         account += temp;
                         int Random = MainModel.getXPosition();
                         terminal.setCursorPosition(Random,6);
-                        MainModel.setXPosition(Random+1);
                         terminal.putCharacter(temp);
+                        MainModel.setXPosition(Random+1);
                         MainModel.setNameOfTheAccount(account);
                         break;
                 }

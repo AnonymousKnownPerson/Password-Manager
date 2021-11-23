@@ -20,6 +20,7 @@ public class MenuView {
         Terminal terminal = model.getTerminal();
         Screen screen = model.getScreen();
         KeyStroke keyStroke = null;
+        screen.clear();
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.drawLine(20, 0, 20, 24, '|');
         textGraphics.putString(2, 0, "Password Manager", SGR.BOLD);
@@ -52,8 +53,6 @@ public class MenuView {
         else {
             textGraphics.putString(1, 8, "4. Wyjdź");
         }
-
-        terminal.flush();
         screen.refresh();
     }
 }

@@ -18,17 +18,6 @@ public class AccountListView {
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.drawLine(21, 1, 80, 1, '-');
 
-        /*
-        for(int i=0;i<MainModel.getNumberOfAccounts();i++){
-            textGraphics.putString(23, 2+3*(i),MainModel.Accounts[i]);
-            textGraphics.putString(23, 3*(i+1), "1. Sprawdź hasła");
-            textGraphics.drawLine(23, 1+3*(i+1), 80, 1+3*(i+1), '-');
-
-
-        }*/
-
-
-
         terminal.flush();
         screen.refresh();
 
