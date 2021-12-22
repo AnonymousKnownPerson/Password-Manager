@@ -8,6 +8,9 @@ import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
 import view.MenuView;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +29,10 @@ public class LoginMenuController {
                     case Escape:
                         terminal.close();
                         System.exit(0);
+                        break;
+                    case ArrowLeft:
+                        PasswordGrabber.ToogleView(1);
+                        terminal.close();
                         break;
                     case Enter:
                         Path relative = Paths.get("password.txt");
@@ -53,4 +60,17 @@ public class LoginMenuController {
 
             }
     }
+    public static void LaunchLoginMenuSwing(JFrame frame, String pass) throws IOException, InterruptedException {
+        Path relative = Paths.get("password.txt");
+        String thingToDecode = Files.readString(relative);
+        String temp1 = PasswordGrabber.decrypt(thingToDecode);
+        if(pass.equals(temp1)){
+            System.out.println("Pog");
+            MenuView.LaunchViewMenuSwing(frame);
+        }else System.exit(0);
+
+
+
+    }
+
 }

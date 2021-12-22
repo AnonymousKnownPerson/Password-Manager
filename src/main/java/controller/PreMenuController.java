@@ -4,6 +4,8 @@ import model.MainModel;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.Terminal;
+
+import javax.swing.*;
 import java.io.IOException;
 
 public class PreMenuController {
@@ -17,6 +19,10 @@ public class PreMenuController {
 
             if (keyStroke != null) {
                 switch (keyStroke.getKeyType()) {
+                    case ArrowLeft:
+                        PasswordGrabber.ToogleView(1);
+                        terminal.close();
+                        break;
                     case Escape:
                         terminal.close();
                         break;
@@ -38,4 +44,11 @@ public class PreMenuController {
 
             }
     }
+    public static void LaunchPreMenuSwing(JFrame frame, String pass){
+        String pswd = PasswordGrabber.encrypt(pass) ;
+        PasswordGrabber.CreateFile("password");
+        PasswordGrabber.PutToFile(pswd,"password");
+        System.exit(0);
+    }
+
 }

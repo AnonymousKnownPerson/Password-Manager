@@ -6,6 +6,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
@@ -30,6 +32,7 @@ public class MainModel {
     private static int indexMenu = 1;
     private static int numberOfAccounts = 0;
     private static int pageOfAccounts = 1;
+    private static boolean isItActive = false;
 
     private String pwd="";
 
@@ -49,6 +52,12 @@ public class MainModel {
             login=name;
             password=pswd;
         }
+    }
+    public static void setIsItActive(boolean state){
+        isItActive=state;
+    }
+    public static boolean getIsItActive(){
+        return isItActive;
     }
     public static void setPageOfAccounts(int numberOfTheIndex){
         pageOfAccounts=numberOfTheIndex;

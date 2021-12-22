@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class AccountListView {
@@ -21,5 +22,9 @@ public class AccountListView {
 
         terminal.flush();
         screen.refresh();
+    }
+    public static void MakeAccountSwing(JFrame frame, JPanel panel){
+
+
     }
 }

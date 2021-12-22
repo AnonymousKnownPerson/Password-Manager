@@ -10,7 +10,7 @@ import view.MenuView;
 import java.io.IOException;
 
 public class MakeAccountController {
-    public static void MakeAccountController(MainModel model, int numberOfAccounts) throws IOException, InterruptedException {
+    public static void MakeAccountController(MainModel model) throws IOException, InterruptedException {
         MainModel.itIsInMenu(false);
         MainModel.itIsInAccountMaker(true);
         MainModel.setStateOfAccountMaker(0);
@@ -77,5 +77,8 @@ public class MakeAccountController {
 
         }
 
+    }
+    public static void MakeAccountControllerSwing(String nameOfTheAccount,String passwordOfTheAccount) throws IOException {
+        PasswordGrabber.CreateAccount(nameOfTheAccount,passwordOfTheAccount);
     }
 }

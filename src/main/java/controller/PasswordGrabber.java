@@ -4,6 +4,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,6 +14,7 @@ import java.security.spec.KeySpec;
 import java.util.*;
 import javax.crypto.*;
 import java.util.Base64;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,6 +22,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
+import javax.swing.border.Border;
 
 public class PasswordGrabber {
     public static String decrypt(String strToDecrypt) {
@@ -130,6 +134,51 @@ public class PasswordGrabber {
         terminal.flush();
         screen.refresh();
     }
+    public static void ReadAccountsSwing(int numberOfTheSite,JFrame frame) throws IOException {
+        Scanner input = new Scanner(new File("Passwords.txt"));
+        MainModel.Account[] accounts = new MainModel.Account[0];
+        while(input.hasNext()) {
+            String login = input.next();
+            String pass = input.next();
+            String password = decrypt(pass);
+            MainModel.Account newAccount = new MainModel.Account(login,password);
+            accounts = addAccount(accounts, newAccount);
+        }
+        int min=numberOfTheSite*7-7;
+        int max=numberOfTheSite*7;
+        int i=0;
+        int j=0;
+        for(MainModel.Account account : accounts){
+            if(min<=i && max>i){
+                JPanel panel1 = new JPanel();
+                Border blackline = BorderFactory.createLineBorder(Color.black);
+                int R = (int)(Math.random()*256);
+                int G = (int)(Math.random()*256);
+                int B= (int)(Math.random()*256);
+                Color color = new Color(R, G, B);
+                Random random = new Random();
+                final float hue = random.nextFloat();
+                final float saturation = 0.9f;
+                final float luminance = 1.0f;
+                color = Color.getHSBColor(hue, saturation, luminance);
+                panel1.setBackground(color);
+                JLabel label1 = new JLabel(account.login);
+                JLabel label2 = new JLabel(account.password);
+                panel1.setBounds(150,(j)*60,570, (j+1)*60);
+                panel1.setBorder(blackline);
+                panel1.setLayout(new BorderLayout());
+                panel1.add(label1);
+                panel1.add(label2);
+                frame.add(panel1);
+                panel1.setVisible(true);
+                j++;
+            }
+            i++;
+        }
+        frame.validate();
+        frame.repaint();
+    }
+
     static void DeleteAccount(int numberOfTheAccount) throws IOException {
         List<String> result;
         try (Stream<String> lines = Files.lines(Paths.get("passwords.txt"))) {
@@ -152,4 +201,16 @@ public class PasswordGrabber {
         newAccounts[newAccounts.length - 1] = accountsToAdd;
         return newAccounts;
     }
+    public static void ToogleView(int toggleViewNumber) throws IOException {
+            FileWriter fileWriter = new FileWriter("toggleview.txt");
+            String test = String.valueOf(toggleViewNumber);
+            fileWriter.write(test);
+            fileWriter.flush(); // empty buffer in the file
+            fileWriter.close(); // close the file to allow opening by others applications
+    }
+    public static int CheckView() throws IOException {
+        Scanner input = new Scanner(new File("toggleview.txt"));
+        return Integer.parseInt(input.next());
+    }
+
 }

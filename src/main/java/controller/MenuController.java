@@ -8,10 +8,11 @@ import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
 import view.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuController {
+public class  MenuController {
     public static void LaunchMenu(MainModel model) throws IOException, IllegalArgumentException, InterruptedException {
         MainModel.itIsInMenu(true);
         MainModel.itIsInAccountList(false);
@@ -128,7 +129,7 @@ public class MenuController {
                             screen.refresh();
                             terminal.clearScreen();
                             MakeAccountView.LaunchViewMenu(model, MainModel.getStateOfAccountMaker());
-                            MakeAccountController.MakeAccountController(model, MainModel.getNumberOfAccounts());
+                            MakeAccountController.MakeAccountController(model);
                         } else if (model.getIndexMenu() == 1) {
                             File f = new File("passwords.txt");
                             if (!f.exists()) {
@@ -179,6 +180,40 @@ public class MenuController {
             }
         }
     }
+    public static void AccountControllerSwing(JFrame frame,int numberOfThePage) throws IOException {
+        File f = new File("passwords.txt");
+        if (!f.exists()) PasswordGrabber.CreateFile("passwords");
+        PasswordGrabber.ReadAccountsSwing(1, frame);
+        /*
+        boolean accountTemp = true;
+        while (accountTemp) {
+            if (keyStroke2 != null) {
+                switch (keyStroke2.getKeyType()) {
+                    case ArrowRight:
+                        int temp2 = MainModel.getPageOfAccounts();
+                        AccountListView.LaunchAccountListView(model);
+                        MainModel.setPageOfAccounts(temp2 + 1);
+                        PasswordGrabber.ReadAccounts(model, temp2 + 1);
+                        break;
+                    case ArrowLeft:
+                        if (MainModel.getPageOfAccounts() != 1) {
+                            int temp3 = MainModel.getPageOfAccounts();
+                            AccountListView.LaunchAccountListView(model);
+                            MainModel.setPageOfAccounts(temp3 - 1);
+                            PasswordGrabber.ReadAccounts(model, temp3 - 1);
+                        }
+                        break;
+                }
+
+            }
+
+        }
+        */
+
+    }
+
+
+
 }
 
 

@@ -8,8 +8,16 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
+import controller.LoginMenuController;
+import controller.PreMenuController;
 import model.MainModel;
+
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class PreMenuView{
@@ -24,10 +32,36 @@ public class PreMenuView{
         textGraphics.drawLine(30, 5, 50, 5, '-');
         textGraphics.putString(35, 6, "Ustaw Hasło!", SGR.BLINK);
         textGraphics.drawLine(30, 7, 50, 7, '-');
+        textGraphics.putString(60, 3, "Press \"`\" to restart");
+        textGraphics.putString(60, 4, "app with new view");
 
         screen.refresh();
 
     }
-
-
+    public static void LaunchViewPreMenuSwing(JFrame frame) {
+        JPanel p1 = new JPanel();
+        JLabel label  = new JLabel("Ustaw Hasło !!!");
+        JPasswordField newPassword = new JPasswordField(16);
+        JButton button = new JButton("Submit");
+        button.addActionListener(e -> PreMenuController.LaunchPreMenuSwing(frame,String.valueOf(newPassword.getPassword())));
+        KeyListener listener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    PreMenuController.LaunchPreMenuSwing(frame,String.valueOf(newPassword.getPassword()));
+                }
+            }
+        };
+        button.addKeyListener(listener);
+        newPassword.addKeyListener(listener);
+        p1.add(label);
+        p1.add(newPassword);
+        p1.add(button);
+        frame.add(p1);
+        frame.validate();
+        frame.repaint();
+    }
 }
