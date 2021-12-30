@@ -134,7 +134,7 @@ public class PasswordGrabber {
         terminal.flush();
         screen.refresh();
     }
-    public static void ReadAccountsSwing(int numberOfTheSite,JFrame frame) throws IOException {
+    public static void ReadAccountsSwingDecrypt(int numberOfTheSite,JFrame frame) throws IOException {
         Scanner input = new Scanner(new File("Passwords.txt"));
         MainModel.Account[] accounts = new MainModel.Account[0];
         while(input.hasNext()) {
@@ -152,23 +152,64 @@ public class PasswordGrabber {
             if(min<=i && max>i){
                 JPanel panel1 = new JPanel();
                 Border blackline = BorderFactory.createLineBorder(Color.black);
-                int R = (int)(Math.random()*256);
-                int G = (int)(Math.random()*256);
-                int B= (int)(Math.random()*256);
-                Color color = new Color(R, G, B);
+                Color color;
                 Random random = new Random();
                 final float hue = random.nextFloat();
-                final float saturation = 0.9f;
+                final float saturation = 0.05f;
                 final float luminance = 1.0f;
                 color = Color.getHSBColor(hue, saturation, luminance);
+                JLabel label1 = new JLabel("Login - " + account.login +"   Hasło - " + account.password );
+                panel1.setPreferredSize(new Dimension(420, 53));
+
+                System.out.println(label1.getText());
                 panel1.setBackground(color);
-                JLabel label1 = new JLabel(account.login);
-                JLabel label2 = new JLabel(account.password);
-                panel1.setBounds(150,(j)*60,570, (j+1)*60);
+                panel1.setBounds(150,(j)*53,570, 53);
                 panel1.setBorder(blackline);
                 panel1.setLayout(new BorderLayout());
                 panel1.add(label1);
-                panel1.add(label2);
+                frame.add(panel1);
+                panel1.setVisible(true);
+                j++;
+            }
+            i++;
+        }
+        frame.validate();
+        frame.repaint();
+    }
+    public static void ReadAccountsSwing(int numberOfTheSite,JFrame frame) throws IOException {
+        Scanner input = new Scanner(new File("Passwords.txt"));
+        MainModel.Account[] accounts = new MainModel.Account[0];
+        while(input.hasNext()) {
+            String login = input.next();
+            String password = input.next();
+            if(!MainModel.getDecrypted()){
+                password = decrypt(password);
+            }
+            MainModel.Account newAccount = new MainModel.Account(login,password);
+            accounts = addAccount(accounts, newAccount);
+        }
+        int min=numberOfTheSite*7-7;
+        int max=numberOfTheSite*7;
+        int i=0;
+        int j=0;
+        for(MainModel.Account account : accounts){
+            if(min<=i && max>i){
+                JPanel panel1 = new JPanel();
+                Border blackline = BorderFactory.createLineBorder(Color.black);
+                Color color;
+                Random random = new Random();
+                final float hue = random.nextFloat();
+                final float saturation = 0.05f;
+                final float luminance = 1.0f;
+                color = Color.getHSBColor(hue, saturation, luminance);
+                JLabel label1 = new JLabel("Login - " + account.login +"   Hasło - " + account.password );
+                panel1.setPreferredSize(new Dimension(420, 54));
+                System.out.println(label1.getText());
+                panel1.setBackground(color);
+                panel1.setBounds(150,(j)*54,570, 54);
+                panel1.setBorder(blackline);
+                panel1.setLayout(new BorderLayout());
+                panel1.add(label1);
                 frame.add(panel1);
                 panel1.setVisible(true);
                 j++;

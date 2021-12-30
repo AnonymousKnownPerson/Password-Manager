@@ -46,8 +46,10 @@ public class MakeAccountView {
         JPasswordField newPassword = new JPasswordField(16);
         JButton button = new JButton("Submit");
         button.addActionListener(e ->{
-        if(name.getText()==null){
+        if(name.getText().length()==0){
             System.out.println("nie ma podanego imienia");
+        }else if(String.valueOf(newPassword.getPassword()).length()==0){
+            System.out.println("nie ma podanego hasła");
         }else{
             try {
                 MakeAccountController.MakeAccountControllerSwing(name.getText(),String.valueOf(newPassword.getPassword()));
@@ -66,8 +68,10 @@ public class MakeAccountView {
             public void keyReleased(KeyEvent e) {}
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    if(name.getText()==null){
+                    if(name.getText().length()==0){
                         System.out.println("nie ma podanego imienia");
+                    }else if(String.valueOf(newPassword.getPassword()).length()==0) {
+                        System.out.println("nie ma podanego hasła");
                     }else{
                         try {
                             MakeAccountController.MakeAccountControllerSwing(name.getText(),String.valueOf(newPassword.getPassword()));

@@ -32,7 +32,9 @@ public class MainModel {
     private static int indexMenu = 1;
     private static int numberOfAccounts = 0;
     private static int pageOfAccounts = 1;
-    private static boolean isItActive = false;
+    private static boolean isItActive = false; //swing
+    private static boolean decrypted = false; //swing
+    private static int menuSwing = 0; //swing
 
     private String pwd="";
 
@@ -52,6 +54,18 @@ public class MainModel {
             login=name;
             password=pswd;
         }
+    }
+    public static void setMenuSwing(int numberOfTheIndex){
+        menuSwing=numberOfTheIndex;
+    }
+    public static int getMenuSwing(){
+        return menuSwing;
+    }
+    public static void setDecrypted(boolean state){
+        decrypted=state;
+    }
+    public static boolean getDecrypted(){
+        return decrypted;
     }
     public static void setIsItActive(boolean state){
         isItActive=state;
