@@ -72,7 +72,7 @@ public class MakeAccountView {
                         System.out.println("nie ma podanego imienia");
                     }else if(String.valueOf(newPassword.getPassword()).length()==0) {
                         System.out.println("nie ma podanego hasła");
-                    }else{
+                    }else{ 
                         try {
                             MakeAccountController.MakeAccountControllerSwing(name.getText(),String.valueOf(newPassword.getPassword()));
                         } catch (IOException ex) {

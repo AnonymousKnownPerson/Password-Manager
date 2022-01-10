@@ -38,9 +38,7 @@ public class LoginMenuView{
         button.addActionListener(e -> {
             try {
                 LoginMenuController.LaunchLoginMenuSwing(frame, String.valueOf(password.getPassword()));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (InterruptedException ex) {
+            } catch (IOException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         });

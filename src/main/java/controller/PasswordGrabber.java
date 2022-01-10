@@ -134,7 +134,7 @@ public class PasswordGrabber {
         terminal.flush();
         screen.refresh();
     }
-    public static void ReadAccountsSwingDecrypt(int numberOfTheSite,JFrame frame) throws IOException {
+/*    public static void ReadAccountsSwingDecrypt(int numberOfTheSite,JFrame frame) throws IOException {
         Scanner input = new Scanner(new File("Passwords.txt"));
         MainModel.Account[] accounts = new MainModel.Account[0];
         while(input.hasNext()) {
@@ -145,7 +145,7 @@ public class PasswordGrabber {
             accounts = addAccount(accounts, newAccount);
         }
         int min=numberOfTheSite*7-7;
-        int max=numberOfTheSite*7;
+        int max=numberOfTheSite*7+1;
         int i=0;
         int j=0;
         for(MainModel.Account account : accounts){
@@ -175,21 +175,21 @@ public class PasswordGrabber {
         }
         frame.validate();
         frame.repaint();
-    }
+    }*/
     public static void ReadAccountsSwing(int numberOfTheSite,JFrame frame) throws IOException {
         Scanner input = new Scanner(new File("Passwords.txt"));
         MainModel.Account[] accounts = new MainModel.Account[0];
         while(input.hasNext()) {
             String login = input.next();
             String password = input.next();
-            if(!MainModel.getDecrypted()){
+            if(MainModel.getDecrypted()){
                 password = decrypt(password);
             }
             MainModel.Account newAccount = new MainModel.Account(login,password);
             accounts = addAccount(accounts, newAccount);
         }
         int min=numberOfTheSite*7-7;
-        int max=numberOfTheSite*7;
+        int max=numberOfTheSite*7+1;
         int i=0;
         int j=0;
         for(MainModel.Account account : accounts){
