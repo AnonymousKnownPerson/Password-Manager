@@ -35,6 +35,7 @@ public class MainModel {
     private static boolean isItActive = false; //swing
     private static boolean decrypted = false; //swing
     private static int menuSwing = 0; //swing
+    private static boolean deleteFrameActive = false;
 
     private String pwd="";
 
@@ -54,6 +55,12 @@ public class MainModel {
             login=name;
             password=pswd;
         }
+    }
+    public static void setDeleteFrameActive(boolean deletedFrameActive){
+        deleteFrameActive=deletedFrameActive;
+    }
+    public static boolean getDeleteFrameActive(){
+        return deleteFrameActive;
     }
     public static void setMenuSwing(int numberOfTheIndex){
         menuSwing=numberOfTheIndex;

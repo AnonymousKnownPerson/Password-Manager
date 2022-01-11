@@ -23,8 +23,4 @@ public class AccountListView {
         terminal.flush();
         screen.refresh();
     }
-    public static void MakeAccountSwing(JFrame frame, JPanel panel){
-
-
-    }
 }

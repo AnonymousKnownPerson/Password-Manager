@@ -40,6 +40,10 @@ public class MakeAccountView {
     }
     public static void MaceAccountSwing(JFrame frame, JPanel panel){
         MenuView.LaunchViewMenuSwing(frame);
+        JPanel panel1  = new JPanel();
+        JPanel panel2  = new JPanel();
+        JPanel panel3  = new JPanel();
+        JLabel help  = new JLabel("");
         JLabel label1  = new JLabel("Ustaw Imie !!!");
         JTextField name = new JTextField(16);
         JLabel label  = new JLabel("Ustaw Hasło !!!");
@@ -47,9 +51,9 @@ public class MakeAccountView {
         JButton button = new JButton("Submit");
         button.addActionListener(e ->{
         if(name.getText().length()==0){
-            System.out.println("nie ma podanego imienia");
+            help.setText("nie ma podanego imienia");
         }else if(String.valueOf(newPassword.getPassword()).length()==0){
-            System.out.println("nie ma podanego hasła");
+            help.setText("nie ma podanego hasła");
         }else{
             try {
                 MakeAccountController.MakeAccountControllerSwing(name.getText(),String.valueOf(newPassword.getPassword()));
@@ -57,8 +61,6 @@ public class MakeAccountView {
                 ex.printStackTrace();
             }
             MenuView.LaunchViewMenuSwing(frame);
-            System.out.println(name.getText()+ " - to jest imie");
-            System.out.println(String.valueOf(newPassword.getPassword())+" - to jest hasło");
 
         }});
         KeyListener listener = new KeyListener() {
@@ -69,9 +71,9 @@ public class MakeAccountView {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     if(name.getText().length()==0){
-                        System.out.println("nie ma podanego imienia");
+                        help.setText("nie ma podanego imienia");
                     }else if(String.valueOf(newPassword.getPassword()).length()==0) {
-                        System.out.println("nie ma podanego hasła");
+                        help.setText("nie ma podanego hasła");
                     }else{ 
                         try {
                             MakeAccountController.MakeAccountControllerSwing(name.getText(),String.valueOf(newPassword.getPassword()));
@@ -79,19 +81,23 @@ public class MakeAccountView {
                             ex.printStackTrace();
                         }
                         MenuView.LaunchViewMenuSwing(frame);
-                        System.out.println(name.getText()+ " - to jest imie");
-                        System.out.println(String.valueOf(newPassword.getPassword())+" - to jest hasło");
                     }
                 }
             }
         };
         button.addKeyListener(listener);
         newPassword.addKeyListener(listener);
-        panel.add(label1);
-        panel.add(name);
-        panel.add(label);
-        panel.add(newPassword);
-        panel.add(button);
+        panel1.add(label1);
+        panel1.add(name);
+        panel2.add(label);
+        panel2.add(newPassword);
+        panel3.add(help);
+        panel3.add(button);
+        panel.add(panel1);
+        panel.add(panel2);
+        panel3.setPreferredSize(new Dimension(500,500));
+        panel.add(panel3);
+        panel.setLayout(new FlowLayout());
         frame.add(panel);
         panel.setVisible(true);
         panel.setAlignmentX(JComponent.CENTER_ALIGNMENT);

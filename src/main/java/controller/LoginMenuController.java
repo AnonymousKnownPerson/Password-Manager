@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static com.googlecode.lanterna.input.KeyType.ArrowLeft;
+
 public class LoginMenuController {
     public static void LaunchLoginMenu(MainModel model) throws IOException, IllegalArgumentException, InterruptedException {
         while(MainModel.isInLoginMenu()){ //<- sprawdza czy jest w menu
@@ -49,23 +51,21 @@ public class LoginMenuController {
                         }
                         break;
                     default:
+                        if(keyStroke.getCharacter()==null) System.exit(0);
                         char temp=keyStroke.getCharacter();
                         password+=temp;
                         terminal.putCharacter(temp);
                         model.setpwd(password);
                         break;
                 }
-
             }
-
-            }
+        }
     }
     public static void LaunchLoginMenuSwing(JFrame frame, String pass) throws IOException, InterruptedException {
         Path relative = Paths.get("password.txt");
         String thingToDecode = Files.readString(relative);
         String temp1 = PasswordGrabber.decrypt(thingToDecode);
         if(pass.equals(temp1)){
-            System.out.println("Pog");
             MenuView.LaunchViewMenuSwing(frame);
         }else System.exit(0);
 

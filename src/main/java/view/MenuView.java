@@ -56,6 +56,7 @@ public class MenuView {
 
         JPanel menu = new JPanel();
         JPanel add = new JPanel();
+        JPanel delete = new JPanel();
         frame.setSize(720, 420);
         JButton buttonShow=new JButton("Pokaż Hasła");
         JButton buttonAdd=new JButton("Dodaj Hasło");
@@ -71,12 +72,7 @@ public class MenuView {
             }
         });
         buttonDelete.addActionListener(e -> {
-            try {
-                MainModel.setMenuSwing(3);
-                MenuController.AccountControllerSwing(frame, MainModel.getPageOfAccounts());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            if(!MainModel.getDeleteFrameActive())DeleteAccountView.DeleteAccountByIdSwing(frame, delete);
         });
         String message = null;
         if (MainModel.getDecrypted()) {
@@ -98,7 +94,6 @@ public class MenuView {
             }
         });
         buttonAdd.addActionListener(e -> MaceAccountSwing(frame,add));
-        buttonDelete.addActionListener(e -> System.exit(0));
         buttonExit.addActionListener(e -> System.exit(0));
         menu.setBackground(Color.gray);
         menu.setAlignmentX(Component.LEFT_ALIGNMENT);

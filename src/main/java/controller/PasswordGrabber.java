@@ -135,48 +135,6 @@ public class PasswordGrabber {
         terminal.flush();
         screen.refresh();
     }
-/*    public static void ReadAccountsSwingDecrypt(int numberOfTheSite,JFrame frame) throws IOException {
-        Scanner input = new Scanner(new File("Passwords.txt"));
-        MainModel.Account[] accounts = new MainModel.Account[0];
-        while(input.hasNext()) {
-            String login = input.next();
-            String pass = input.next();
-            String password = decrypt(pass);
-            MainModel.Account newAccount = new MainModel.Account(login,password);
-            accounts = addAccount(accounts, newAccount);
-        }
-        int min=numberOfTheSite*7-7;
-        int max=numberOfTheSite*7+1;
-        int i=0;
-        int j=0;
-        for(MainModel.Account account : accounts){
-            if(min<=i && max>i){
-                JPanel panel1 = new JPanel();
-                Border blackline = BorderFactory.createLineBorder(Color.black);
-                Color color;
-                Random random = new Random();
-                final float hue = random.nextFloat();
-                final float saturation = 0.05f;
-                final float luminance = 1.0f;
-                color = Color.getHSBColor(hue, saturation, luminance);
-                JLabel label1 = new JLabel("Login - " + account.login +"   Hasło - " + account.password );
-                panel1.setPreferredSize(new Dimension(420, 53));
-
-                System.out.println(label1.getText());
-                panel1.setBackground(color);
-                panel1.setBounds(150,(j)*53,570, 53);
-                panel1.setBorder(blackline);
-                panel1.setLayout(new BorderLayout());
-                panel1.add(label1);
-                frame.add(panel1);
-                panel1.setVisible(true);
-                j++;
-            }
-            i++;
-        }
-        frame.validate();
-        frame.repaint();
-    }*/
     public static void ReadAccountsSwing(int numberOfTheSite,JFrame frame) throws IOException {
         MenuView.LaunchViewMenuSwing(frame);
         Scanner input = new Scanner(new File("Passwords.txt"));
@@ -196,7 +154,7 @@ public class PasswordGrabber {
         int j=0;
         Border blackline = BorderFactory.createLineBorder(Color.black);
         JPanel panel2 = new JPanel();
-        JButton leftButton = new JButton("Poprzednia Sprawa");
+        JButton leftButton = new JButton("Poprzednia Strona");
         JButton rightButton = new JButton("Następna Strona");
         leftButton.addActionListener(e ->{
             if(numberOfTheSite!=1){
@@ -224,27 +182,20 @@ public class PasswordGrabber {
         for(MainModel.Account account : accounts){
             if(min<=i && max>i){
                 JPanel panel1 = new JPanel();
-
                 Color color;
                 Random random = new Random();
                 final float hue = random.nextFloat();
                 final float saturation = 0.05f;
                 final float luminance = 1.0f;
                 color = Color.getHSBColor(hue, saturation, luminance);
-                JLabel label1 = new JLabel("Login - " + account.login +"   Hasło - " + account.password );
+                JLabel label1 = new JLabel("  Id :" + i + " | Login - " + account.login +"   |  Hasło - " + account.password );
                 panel1.setPreferredSize(new Dimension(420, 54));
-                System.out.println(label1.getText());
                 if(j!=7)panel1.setBackground(color);
-                JButton deleteButton = new JButton("Usuń konto nr : " + i);
                 panel1.setBounds(150,40+(j)*40,570, 54);
-                deleteButton.setBounds(460, 60+(j)*40, 100, 34);
                 panel1.setBorder(blackline);
-                panel1.setLayout(new FlowLayout());
-                deleteButton.setLayout(new FlowLayout());
-                if(MainModel.getMenuSwing()==3){
-                }
+                panel1.setLayout(new BorderLayout());
+                MainModel.setDeletePosition(i);
                 panel1.add(label1);
-                if(j!=7)panel1.add(deleteButton);
                 frame.add(panel1);
                 panel1.setVisible(true);
                 j++;
@@ -261,7 +212,7 @@ public class PasswordGrabber {
         frame.repaint();
     }
 
-    static void DeleteAccount(int numberOfTheAccount) throws IOException {
+    public static void DeleteAccount(int numberOfTheAccount) throws IOException {
         List<String> result;
         try (Stream<String> lines = Files.lines(Paths.get("passwords.txt"))) {
             result = lines.collect(Collectors.toList());
