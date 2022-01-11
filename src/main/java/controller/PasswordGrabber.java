@@ -217,8 +217,8 @@ public class PasswordGrabber {
         try (Stream<String> lines = Files.lines(Paths.get("passwords.txt"))) {
             result = lines.collect(Collectors.toList());
         }
-        File f=new File("passwords.txt");  //Creation of File Descriptor for output file
-        FileWriter fw=new FileWriter(f); //Creation of File Writer object
+        File f=new File("passwords.txt");
+        FileWriter fw=new FileWriter(f);
         for(int i=0; i<result.size();i++){
             if(numberOfTheAccount*2==i || numberOfTheAccount*2+1==i){
                 continue;
