@@ -237,10 +237,10 @@ public class PasswordGrabber {
                 if(j!=7)panel1.setBackground(color);
                 JButton deleteButton = new JButton("Usuń konto nr : " + i);
                 panel1.setBounds(150,40+(j)*40,570, 54);
-                deleteButton.setBounds(460, 50+(j)*40, 100, 34);
+                deleteButton.setBounds(460, 60+(j)*40, 100, 34);
                 panel1.setBorder(blackline);
-                panel1.setLayout(new BorderLayout());
-                deleteButton.setLayout(new BorderLayout());
+                panel1.setLayout(new FlowLayout());
+                deleteButton.setLayout(new FlowLayout());
                 if(MainModel.getMenuSwing()==3){
                 }
                 panel1.add(label1);
