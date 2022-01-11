@@ -55,10 +55,7 @@ public class MenuView {
         frame.getContentPane().removeAll();
 
         JPanel menu = new JPanel();
-        JPanel rightSide = new JPanel();
-        JPanel delete = new JPanel();
         JPanel add = new JPanel();
-        JPanel show = new JPanel();
         frame.setSize(720, 420);
         JButton buttonShow=new JButton("Pokaż Hasła");
         JButton buttonAdd=new JButton("Dodaj Hasło");
@@ -67,6 +64,15 @@ public class MenuView {
         menu.setPreferredSize(new Dimension(150, 420));
         buttonShow.addActionListener(e -> {
             try {
+                MainModel.setMenuSwing(1);
+                MenuController.AccountControllerSwing(frame, MainModel.getPageOfAccounts());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        buttonDelete.addActionListener(e -> {
+            try {
+                MainModel.setMenuSwing(3);
                 MenuController.AccountControllerSwing(frame, MainModel.getPageOfAccounts());
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -81,20 +87,16 @@ public class MenuView {
         JButton decButton = new JButton(message);
         decButton.addActionListener(e -> {
             MainModel.setDecrypted(!MainModel.getDecrypted());
-            if(MainModel.getMenuSwing()==1){
+            if(MainModel.getMenuSwing()==1||MainModel.getMenuSwing()==3){
                 try {
-
                     MenuView.LaunchViewMenuSwing(frame);
                     MenuController.AccountControllerSwing(frame, MainModel.getPageOfAccounts());
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
                 MenuView.LaunchViewMenuSwing(frame);
-            }else if(MainModel.getMenuSwing()==3){
-
             }
         });
-
         buttonAdd.addActionListener(e -> MaceAccountSwing(frame,add));
         buttonDelete.addActionListener(e -> System.exit(0));
         buttonExit.addActionListener(e -> System.exit(0));

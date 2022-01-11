@@ -81,7 +81,6 @@ public class MakeAccountView {
                         MenuView.LaunchViewMenuSwing(frame);
                         System.out.println(name.getText()+ " - to jest imie");
                         System.out.println(String.valueOf(newPassword.getPassword())+" - to jest hasło");
-
                     }
                 }
             }

@@ -3,6 +3,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.MainModel;
+import view.MenuView;
 
 import java.awt.*;
 import java.io.*;
@@ -177,6 +178,7 @@ public class PasswordGrabber {
         frame.repaint();
     }*/
     public static void ReadAccountsSwing(int numberOfTheSite,JFrame frame) throws IOException {
+        MenuView.LaunchViewMenuSwing(frame);
         Scanner input = new Scanner(new File("Passwords.txt"));
         MainModel.Account[] accounts = new MainModel.Account[0];
         while(input.hasNext()) {
@@ -192,10 +194,37 @@ public class PasswordGrabber {
         int max=numberOfTheSite*7+1;
         int i=0;
         int j=0;
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        JPanel panel2 = new JPanel();
+        JButton leftButton = new JButton("Poprzednia Sprawa");
+        JButton rightButton = new JButton("Następna Strona");
+        leftButton.addActionListener(e ->{
+            if(numberOfTheSite!=1){
+                MainModel.setPageOfAccounts(numberOfTheSite-1);
+                try {
+                    ReadAccountsSwing(numberOfTheSite-1, frame);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        rightButton.addActionListener(e ->{
+            MainModel.setPageOfAccounts(numberOfTheSite+1);
+            try {
+                ReadAccountsSwing(numberOfTheSite+1, frame);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        panel2.setBounds(150, 0,570, 54);
+        panel2.setBorder(blackline);
+        panel2.add(leftButton);
+        panel2.add(rightButton);
+        frame.add(panel2);
         for(MainModel.Account account : accounts){
             if(min<=i && max>i){
                 JPanel panel1 = new JPanel();
-                Border blackline = BorderFactory.createLineBorder(Color.black);
+
                 Color color;
                 Random random = new Random();
                 final float hue = random.nextFloat();
@@ -205,16 +234,28 @@ public class PasswordGrabber {
                 JLabel label1 = new JLabel("Login - " + account.login +"   Hasło - " + account.password );
                 panel1.setPreferredSize(new Dimension(420, 54));
                 System.out.println(label1.getText());
-                panel1.setBackground(color);
-                panel1.setBounds(150,(j)*54,570, 54);
+                if(j!=7)panel1.setBackground(color);
+                JButton deleteButton = new JButton("Usuń konto nr : " + i);
+                panel1.setBounds(150,40+(j)*40,570, 54);
+                deleteButton.setBounds(460, 50+(j)*40, 100, 34);
                 panel1.setBorder(blackline);
                 panel1.setLayout(new BorderLayout());
+                deleteButton.setLayout(new BorderLayout());
+                if(MainModel.getMenuSwing()==3){
+                }
                 panel1.add(label1);
+                if(j!=7)panel1.add(deleteButton);
                 frame.add(panel1);
                 panel1.setVisible(true);
                 j++;
             }
             i++;
+        }
+        if (j!=8){
+            JPanel panel1 = new JPanel();
+            panel1.setBounds(150,40+(j)*40,570, 54);
+            panel1.setBorder(blackline);
+            frame.add(panel1);
         }
         frame.validate();
         frame.repaint();
@@ -232,7 +273,6 @@ public class PasswordGrabber {
                 continue;
             }
             fw.write(result.get(i)+"\n");
-
         }
         fw.flush();
     }

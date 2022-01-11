@@ -9,6 +9,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import controller.LoginMenuController;
+import controller.PasswordGrabber;
 import controller.PreMenuController;
 import model.MainModel;
 
@@ -55,11 +56,21 @@ public class PreMenuView{
                 }
             }
         };
+        JButton buttonView = new JButton("Zmień Widok");
+        buttonView.addActionListener(e -> {
+            try {
+                PasswordGrabber.ToogleView(0);
+                System.exit(0);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         button.addKeyListener(listener);
         newPassword.addKeyListener(listener);
         p1.add(label);
         p1.add(newPassword);
         p1.add(button);
+        p1.add(buttonView);
         frame.add(p1);
         frame.validate();
         frame.repaint();

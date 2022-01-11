@@ -4,6 +4,7 @@ import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import controller.LoginMenuController;
+import controller.PasswordGrabber;
 import controller.PreMenuController;
 import model.MainModel;
 
@@ -22,8 +23,9 @@ public class LoginMenuView{
         textGraphics.putString(32, 3, "Password  Manager", SGR.BOLD);
         textGraphics.drawLine(30, 1, 50, 1, '-');
         textGraphics.putString(60, 1, "Press ESC to exit");
-        textGraphics.putString(60, 3, "Press \"`\" to restart");
-        textGraphics.putString(60, 4, "app with new view");
+        textGraphics.putString(60, 3, "Press ArrowLeft ");
+        textGraphics.putString(60, 4, "to restart");
+        textGraphics.putString(60, 5, "app with new view");
         textGraphics.drawLine(30, 5, 50, 5, '-');
         textGraphics.putString(35, 6, "Wpisz Hasło", SGR.BLINK);
         textGraphics.drawLine(30, 7, 50, 7, '-');
@@ -58,11 +60,21 @@ public class LoginMenuView{
             }
 
         };
+        JButton buttonView = new JButton("Zmień Widok");
+        buttonView.addActionListener(e -> {
+            try {
+                PasswordGrabber.ToogleView(0);
+                System.exit(0);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         button.addKeyListener(listener);
         password.addKeyListener(listener);
         p1.add(label);
         p1.add(password);
         p1.add(button);
+        p1.add(buttonView);
         frame.add(p1);
         frame.validate();
         frame.repaint();
