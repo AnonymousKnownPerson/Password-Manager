@@ -72,9 +72,7 @@ public class PasswordGrabber {
         String data = password;
         try(FileOutputStream fos = new FileOutputStream(file);
             BufferedOutputStream bos = new BufferedOutputStream(fos)) {
-            //convert string to byte array
             byte[] bytes = data.getBytes();
-            //write byte array to file
             bos.write(bytes);
             bos.close();
             fos.close();

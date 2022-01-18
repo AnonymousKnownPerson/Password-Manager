@@ -101,8 +101,10 @@ public class MenuView {
         menu.add(buttonShow);
         menu.add(buttonAdd);
         menu.add(buttonDelete);
-        menu.add(buttonExit);
         menu.add(decButton);
+        menu.add(buttonExit);
+        menu.setLayout(new GridLayout(5,1,0,17));
+        menu.setBorder(BorderFactory.createEmptyBorder(10, 10, 170, 10));
         frame.add(menu, BorderLayout.WEST);
         frame.repaint();
         frame.revalidate();

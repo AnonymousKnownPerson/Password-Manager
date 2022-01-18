@@ -74,12 +74,6 @@ public class MainModel {
     public static boolean getDecrypted(){
         return decrypted;
     }
-    public static void setIsItActive(boolean state){
-        isItActive=state;
-    }
-    public static boolean getIsItActive(){
-        return isItActive;
-    }
     public static void setPageOfAccounts(int numberOfTheIndex){
         pageOfAccounts=numberOfTheIndex;
     }

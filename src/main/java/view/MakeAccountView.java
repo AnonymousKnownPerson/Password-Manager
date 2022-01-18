@@ -51,9 +51,9 @@ public class MakeAccountView {
         JButton button = new JButton("Submit");
         button.addActionListener(e ->{
         if(name.getText().length()==0){
-            help.setText("nie ma podanego imienia");
+            help.setText("Login Is Missing");
         }else if(String.valueOf(newPassword.getPassword()).length()==0){
-            help.setText("nie ma podanego hasła");
+            help.setText("Password Is Missing");
         }else{
             try {
                 MakeAccountController.MakeAccountControllerSwing(name.getText(),String.valueOf(newPassword.getPassword()));
@@ -97,7 +97,6 @@ public class MakeAccountView {
         panel.add(panel2);
         panel3.setPreferredSize(new Dimension(500,500));
         panel.add(panel3);
-
         panel.setLayout(new FlowLayout());
         frame.add(panel);
         panel.setVisible(true);
